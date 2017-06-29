@@ -12,7 +12,6 @@ class MongoHandler(logging.NullHandler):
         self.collection = self.database.get_collection('collection', 'unspecified')
         self.executor = ThreadPoolExecutor(thread_name_prefix='MongoHandler')
         super().__init__(*args, **kwargs)
-        self.setLevel(logging.INFO)
 
     def _worker(self, record: logging.LogRecord):
         self.collection.insert_one({'level': record.levelname, 'message': record.msg,
